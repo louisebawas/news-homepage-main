@@ -1,0 +1,258 @@
+:root {
+  --off-white: hsl(36, 100%, 99%);
+  --grayish-blue: hsl(233, 8%, 79%);
+  --dark-grayish-blue: hsl(236, 13%, 42%);
+  --very-dark-blue: hsl(240, 100%, 5%);
+  --soft-orange: hsl(35, 77%, 62%);
+  --soft-red: hsl(5, 85%, 63%);
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/static/Inter-Regular.ttf') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/static/Inter-Bold.ttf') format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/static/Inter-ExtraBold.ttf') format('woff2');
+  font-weight: 800;
+}
+
+body {
+  background-color: hsl(36, 100%, 99%);
+  overflow-x: hidden;
+  font-family: Inter, sans-serif;
+  font-size: 0.825rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+h3 {
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+h5 {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.big-title {
+  letter-spacing: 0.01em;
+}
+
+p {
+  font-size: 0.825rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  color: var(--dark-grayish-blue);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gap, 1rem);
+}
+
+.grid-col-1-2 {
+  grid-template-columns: 1fr 2fr;
+}
+
+.justify-start {
+  justify-self: start;
+}
+
+.container {
+  margin: 0 min(20%, 10vw);
+  grid-template-columns: repeat(3, 3fr);
+  grid-template-areas: 
+    "header header header"
+    "article article aside"
+    "section section section"
+    "footer footer footer"
+  ;
+}
+
+article {
+  grid-area: article;
+  grid-template-rows: max-content 1fr;
+}
+
+aside {
+  --gap: 0;
+  grid-area: aside;
+  grid-template-rows: 60px repeat(3, 1fr);
+  background-color: var(--very-dark-blue);
+  padding-inline: 1rem;
+}
+
+aside div, aside h3 {
+  align-self: center;
+}
+
+aside div {
+  padding-block: 1.25rem;
+  color: var(--off-white);
+}
+
+aside div h6 {
+  margin-bottom: 0.75rem;
+}
+
+aside div:nth-child(3) {
+  border-top: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+}
+
+section {
+  grid-area: section;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+section > div {
+  padding-block: 1.5rem;
+}
+
+footer {
+  grid-area: footer;
+}
+
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+.logo {
+  margin-block: 2rem;
+}
+
+.btn {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.75rem;
+  border: 0;
+  height: 40px;
+  letter-spacing: 0.2em;
+}
+
+.btn-primary {
+  background-color: hsl(5, 85%, 63%);
+  color: rgb(255, 232, 232);
+}
+
+.primary-header {
+  grid-area: header;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.primary-navigation[data-visible="true"] {
+  transform: translateX(0%);
+}
+
+.mobile-nav-toggle { 
+  display: none;
+}
+
+@media (min-width: 35em) {
+  .banner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 35em) {
+  .container {
+    margin: 0 1rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "header"
+      "article"
+      "aside"
+      "section"
+      "footer";
+  }
+
+  .banner {
+    grid-template-rows: max-content 1fr;
+  }
+
+  .primary-navigation {
+    --gap: 2em;
+    position: fixed;
+    inset: 0 0 0 30%;
+    z-index: 1000;
+
+    flex-direction: column;
+    padding: min(30vh, 10rem) 2em;
+    background-color: hsl(36, 100%, 99%);
+
+    transform: translateX(100%);
+    transition: transform 350ms ease-out;
+  }
+
+  .mobile-nav-toggle {
+    display: block;
+    position: absolute;
+    width: 2rem;
+    background-image: url('assets/images/icon-menu.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: 0;
+    aspect-ratio: 1;
+    top: 2rem;
+    right: 2rem;
+    z-index: 9999;
+  }
+
+  .mobile-nav-toggle[aria-expanded=true] {
+    background-image: url('assets/images/icon-menu-close.svg');
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.text-soft-orange {
+  color: hsl(35, 77%, 62%);
+}
+
+.text-gray-blue {
+  color: var(--grayish-blue);
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  inset: 0 0 0 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+#overlay[data-visible=true] {
+  display: block;
+  background-color: rgba(0,0,0,0.5);
+}
